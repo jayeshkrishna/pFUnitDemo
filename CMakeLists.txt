@@ -10,7 +10,7 @@ add_library(helloworld helloworld.F90)
 
 add_custom_command(
   OUTPUT pftest_hello.F90
-  COMMAND $ENV{PFUNIT_INSTALL_PATH}/bin/pFUnitParser.py pftest_hello.pf pftest_hello.F90
+  COMMAND $ENV{PFUNIT_INSTALL_PATH}/bin/pFUnitParser.py ${CMAKE_CURRENT_SOURCE_DIR}/pftest_hello.pf pftest_hello.F90
 )
 
 # A Non PFUnit test - test_hello
