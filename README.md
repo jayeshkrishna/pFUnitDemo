@@ -13,12 +13,12 @@ Configure
 Set the path to the PFUnit install directory by setting the "PFUNIT_INSTALL_PATH"
 environment variable.
 
-setenv PFUNIT_INSTALL_DIR <PATH_TO_PFUNIT_INSTALL_DIR>
+setenv PFUNIT_INSTALL_DIR PATH_TO_PFUNIT_INSTALL_DIR
 
 Make sure the compilers are set to use the MPI wrapper compilers by setting
 CC, CXX and FC environment variables.
 
-setenv FC <PATH TO MPIF90>
+setenv FC PATH_TO_MPIF90
 
 To configure the application you need to run cmake with the appropriate arguments.
 The command below configures the suite to build and install in the same directory
