@@ -1,0 +1,12 @@
+module helloworld
+  use pfunit_mod
+contains
+  @test
+  subroutine test_hello()
+    implicit none
+
+    call hello()
+    @assertTrue(.true.)
+  end subroutine test_hello
+end module helloworld
+
