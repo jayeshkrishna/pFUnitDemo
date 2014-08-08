@@ -25,4 +25,4 @@ set(pfunit_srcs $ENV{PFUNIT_INSTALL_PATH}/include/driver.F90)
 add_executable(pftest_hello ${pfunit_srcs} pftest_hello.F90)
 target_link_libraries(pftest_hello helloworld pfunit)
 
-add_test(pftest_hello ${MPIEXEC} ${MPIEXEC_NUMPROC_FLAG} 2 ./pftest_hello)
+add_test(pftest_hello ${MPIEXEC} ${MPIEXEC_NUMPROC_FLAG} 3 ./pftest_hello)
