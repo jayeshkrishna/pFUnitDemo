@@ -1,4 +1,4 @@
-module helloworld
+module test_helloworld
   use pfunit_mod
 contains
   @test
@@ -8,5 +8,5 @@ contains
     call hello()
     @assertTrue(.true.)
   end subroutine test_hello
-end module helloworld
+end module test_helloworld
 
