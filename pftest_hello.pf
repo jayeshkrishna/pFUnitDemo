@@ -49,5 +49,33 @@ contains
     call MPI_COMM_RANK(comm, rank, ierr)
     call rank_hello(rank)
   end subroutine test_hello_multi_proc
+
+@test
+  subroutine test_asserts()
+    implicit none
+
+    integer :: one = 1, two = 2
+
+    @assertEqual(one, 1)
+    @assertEqual(one, 1, "one is not equal to 1")
+    @assertTrue(one == 1)
+    @assertTrue(one == 1, "(one == 1) is not true")
+    @assertFalse(one /= 1)
+    @assertFalse(one /= 1, "(one /= 1) is not false")
+    @assertLessThan(one, two)
+    @assertLessThan(one, two, "one is not less than two")
+    @assertLessThanOrEqual(one, two)
+    @assertLessThanOrEqual(one, two, "one is not less than or equal to two")
+    @assertGreaterThan(two, one)
+    @assertGreaterThan(two, one, "two is not greater than one")
+    @assertGreaterThanOrEqual(two, one)
+    @assertGreaterThanOrEqual(two, one, "two is not greater than or equal to one")
+    @assertAny([one == 1, two == 1])
+    @assertAny([one == 1, two == 1], "one is not equal to 1 AND two is not equal to 1")
+    @assertAll([one == 1, two == 2])
+    @assertAll([one == 1, two == 2], "one is not equal to 1 OR two is not equal to 2")
+    @assertNone([one /= 1, two /= 2])
+    @assertNone([one /= 1, two /= 2], "one is not equal to 1 OR two is not equal to 2")
+  end subroutine test_asserts
 end module test_helloworld
 
