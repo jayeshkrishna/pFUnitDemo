@@ -24,6 +24,7 @@ contains
 
     print *, "Test resticted to single proc"
     comm = this%getMpiCommunicator()
+    call comm_hello(comm)
 
     call MPI_COMM_SIZE(comm, size, ierr)
     tmp = this%getNumProcesses()
@@ -44,6 +45,9 @@ contains
 
     call MPI_COMM_SIZE(comm, size, ierr)
     @mpiAssertTrue((size == 2) .OR. (size ==3))
+
+    call MPI_COMM_RANK(comm, rank, ierr)
+    call rank_hello(rank)
   end subroutine test_hello_multi_proc
 end module test_helloworld
 
