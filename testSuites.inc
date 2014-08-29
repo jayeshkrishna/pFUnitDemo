@@ -1,1 +1,2 @@
 ADD_TEST_SUITE(test_helloworld_suite)
+ADD_TEST_SUITE(test_before_after_suite)
