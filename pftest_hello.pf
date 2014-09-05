@@ -58,6 +58,30 @@ contains
     call rank_hello(rank)
   end subroutine test_hello_multi_proc
 
+@test(npes=[2,3])
+  subroutine test_hello_mpi_openmp(this)
+    implicit none
+    class (MpiTestMethod), intent(inout) :: this
+    integer comm, size, rank
+    integer ierr
+
+    !$OMP PARALLEL
+    print *, "Test resticted for 2 & 3 procs"
+    !$OMP END PARALLEL
+    comm = this%getMpiCommunicator()
+
+    call MPI_COMM_SIZE(comm, size, ierr)
+    @mpiAssertTrue((size == 2) .OR. (size ==3))
+
+    call MPI_COMM_RANK(comm, rank, ierr)
+    if(size == 2) then
+      @mpiAssertTrue((rank == 0) .OR. (rank == 1))
+    else
+      @mpiAssertTrue((rank == 0) .OR. (rank == 1) .OR. (rank == 2))
+    endif
+    call rank_hello(rank)
+  end subroutine test_hello_mpi_openmp
+
 @test
   subroutine test_asserts()
     implicit none
