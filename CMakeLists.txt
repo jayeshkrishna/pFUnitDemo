@@ -18,6 +18,11 @@ add_custom_command(
   COMMAND $ENV{PFUNIT_INSTALL_PATH}/bin/pFUnitParser.py ${CMAKE_CURRENT_SOURCE_DIR}/pftest_before_after.pf pftest_before_after.F90
 )
 
+add_custom_command(
+  OUTPUT pftest_serial_before_after.F90
+  COMMAND $ENV{PFUNIT_INSTALL_PATH}/bin/pFUnitParser.py ${CMAKE_CURRENT_SOURCE_DIR}/pftest_serial_before_after.pf pftest_serial_before_after.F90
+)
+
 # A Non PFUnit test - test_hello
 add_executable(test_hello test_hello.F90)
 target_link_libraries(test_hello helloworld)
@@ -27,7 +32,7 @@ link_directories($ENV{PFUNIT_INSTALL_PATH}/lib)
 set(pfunit_srcs $ENV{PFUNIT_INSTALL_PATH}/include/driver.F90)
 
 # Build all PFUnit tests into a single GIANT executable - pftest_alltests
-add_executable(pftest_alltests ${pfunit_srcs} pftest_hello.F90 pftest_before_after.F90)
+add_executable(pftest_alltests ${pfunit_srcs} pftest_hello.F90 pftest_before_after.F90 pftest_serial_before_after.F90)
 target_link_libraries(pftest_alltests helloworld pfunit)
 
 add_test(pftest_alltests ${MPIEXEC} ${MPIEXEC_NUMPROC_FLAG} 3 ./pftest_alltests)
