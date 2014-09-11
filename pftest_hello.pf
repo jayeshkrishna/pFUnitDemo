@@ -109,5 +109,35 @@ contains
     @assertNone([one /= 1, two /= 2])
     @assertNone([one /= 1, two /= 2], "one is not equal to 1 OR two is not equal to 2")
   end subroutine test_asserts
+
+@test(npes=[2,3])
+  subroutine test_mpi_asserts(this)
+    implicit none
+    class (MpiTestMethod), intent(inout) :: this
+
+    integer :: one = 1, two = 2
+
+    @mpiAssertEqual(one, 1)
+    @mpiAssertEqual(one, 1, "one is not equal to 1")
+    @mpiAssertTrue(one == 1)
+    @mpiAssertTrue(one == 1, "(one == 1) is not true")
+    @mpiAssertFalse(one /= 1)
+    @mpiAssertFalse(one /= 1, "(one /= 1) is not false")
+    @mpiAssertLessThan(one, two)
+    @mpiAssertLessThan(one, two, "one is not less than two")
+    @mpiAssertLessThanOrEqual(one, two)
+    @mpiAssertLessThanOrEqual(one, two, "one is not less than or equal to two")
+    @mpiAssertGreaterThan(two, one)
+    @mpiAssertGreaterThan(two, one, "two is not greater than one")
+    @mpiAssertGreaterThanOrEqual(two, one)
+    @mpiAssertGreaterThanOrEqual(two, one, "two is not greater than or equal to one")
+    @mpiAssertAny([one == 1, two == 1])
+    @mpiAssertAny([one == 1, two == 1], "one is not equal to 1 AND two is not equal to 1")
+    @mpiAssertAll([one == 1, two == 2])
+    @mpiAssertAll([one == 1, two == 2], "one is not equal to 1 OR two is not equal to 2")
+    @mpiAssertNone([one /= 1, two /= 2])
+    @mpiAssertNone([one /= 1, two /= 2], "one is not equal to 1 OR two is not equal to 2")
+  end subroutine test_mpi_asserts
+
 end module test_helloworld
 
