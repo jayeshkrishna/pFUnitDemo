@@ -1,0 +1,56 @@
+! 1. This test suite should be executed with atleast 3 MPI processes
+! 2. When building these tests pass the "-DUSE_MPI=YES" to the 
+! compiler. If this option is not provided only the non-MPI tests,
+! tests that don't have npes specified, will be run
+
+module test_serial_before_after
+  use pfunit_mod
+  implicit none
+
+  integer :: num_tests 
+  integer :: test_sz = 0
+  public :: init, finalise, test_one, test_two
+contains
+
+@before
+  subroutine init()
+    implicit none
+
+    num_tests = 0
+    test_sz = 1
+  end subroutine init
+
+! Cannot use "finalize" because "pfunit_mod" already
+! defines it - yikes
+@after
+  subroutine finalise()
+    implicit none
+
+    ! "num_tests" should be equal to 1 - Since the init/finalize
+    ! is run before every test
+    @assertEqual(num_tests, 1, "Number of tests is not equal to 1")
+
+    @assertEqual(test_sz, 1)
+
+  end subroutine finalise
+    
+@test
+  subroutine test_one()
+    implicit none
+
+    num_tests = num_tests + 1
+    @assertFalse(test_sz == 0, "Test size is equal to 0 - fixtures not working")
+    @assertTrue(test_sz == 1, "Test size is not equal to 1 - fixtures not working")
+  end subroutine test_one
+
+@test
+  subroutine test_two()
+    implicit none
+
+    num_tests = num_tests + 1
+    @assertFalse(test_sz == 0, "Test size is equal to 0 - fixtures not working")
+    @assertTrue(test_sz == 1, "Test size is not equal to 1 - fixtures not working")
+  end subroutine test_two
+
+end module test_serial_before_after
+
